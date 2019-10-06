@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_05_180342) do
+ActiveRecord::Schema.define(version: 2019_10_06_004914) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,12 +20,24 @@ ActiveRecord::Schema.define(version: 2019_10_05_180342) do
     t.decimal "balance"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "budget_id", null: false
+    t.index ["budget_id"], name: "index_accounts_on_budget_id"
+  end
+
+  create_table "budgets", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_budgets_on_user_id"
   end
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "budget_id", null: false
+    t.index ["budget_id"], name: "index_categories_on_budget_id"
   end
 
   create_table "sub_categories", force: :cascade do |t|
@@ -49,6 +61,17 @@ ActiveRecord::Schema.define(version: 2019_10_05_180342) do
     t.index ["sub_category_id"], name: "index_transactions_on_sub_category_id"
   end
 
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "password_digest"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  add_foreign_key "accounts", "budgets"
+  add_foreign_key "budgets", "users"
+  add_foreign_key "categories", "budgets"
   add_foreign_key "sub_categories", "categories"
   add_foreign_key "transactions", "accounts"
   add_foreign_key "transactions", "sub_categories"

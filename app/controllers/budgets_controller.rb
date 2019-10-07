@@ -2,12 +2,12 @@ class BudgetsController < ApplicationController
   before_action :set_budget, only: [:show, :update, :destroy]
 
   def index
-    @budgets = Budget.all
+    @budgets = current_user.budgets
     json_response(@budgets)
   end
 
   def create
-    @budget = Budget.create!(budget_params)
+    @budget = current_user.budgets.create!(budget_params)
     json_response(@budget, :created)
   end
 
@@ -27,7 +27,7 @@ class BudgetsController < ApplicationController
   private
 
   def budget_params
-    params.permit(:name, :user_id)
+    params.permit(:name)
   end
 
   def set_budget

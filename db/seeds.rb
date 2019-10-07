@@ -4,7 +4,7 @@ Faker::Config.random = Random.new(42)
 # Create test user
 username = Faker::Name.name
 email = Faker::Internet.email
-password = Faker::Lorem.word
+password = 'foobar'
 user = User.create(name: username, email: email, password: password)
 
 budgets = []

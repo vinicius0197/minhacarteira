@@ -26,6 +26,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 # gem 'rack-cors'
 gem 'pg'
 gem 'jwt'
+gem 'active_model_serializers'
 
 group :test do
   gem 'shoulda-matchers'

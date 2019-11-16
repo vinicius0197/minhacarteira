@@ -1,3 +1,5 @@
 class BudgetSerializer < ActiveModel::Serializer
-  attributes :id
+  attributes :id, :name
+
+  has_many :categories
 end

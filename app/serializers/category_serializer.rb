@@ -1,6 +1,5 @@
 class CategorySerializer < ActiveModel::Serializer
-  attributes :id
+  attributes :id, :name
 
-  belongs_to :budget
   has_many :sub_categories
 end
